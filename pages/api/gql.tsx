@@ -30,7 +30,7 @@ export default async function handler(
     }).then(res => res.json()).then((data) => { return data })
 
 
-    res.status(200).json({ response: { success: true, data: data.data } })
+    res.status(200).json({ response: { success: true, data: data.data } }) //why doesnt this work :noooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo:
   } else {
     res.status(405).json({ response: { success: false } })
   }
