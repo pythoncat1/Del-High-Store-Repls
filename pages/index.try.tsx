@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import * as React from "react";
 import gql from '../components/gql';
-import ThemeContainer from '../components/ThemeContainer';
+import ReplContainer from '../components/ReplContainer';
 
 
 
@@ -12,47 +12,32 @@ const Home: NextPage = () => {
   const [SID, setSID] = React.useState("")
   const [inputThemeID, setInputThemeID] = React.useState("")
 
-  const [themeData, setThemeData] = React.useState({})
-  const [themes, setThemes] = React.useState<any>([])
+  const [repls, setRepls] = React.useState<any>([])
 
 
 
-  async function getThemeData() {
-    let data = await gql("getThemes", SID, {
-      authoredThemesInput: {
-        count: 100
-      }
-    })
-    console.log(data)
+  async function getReplData() {
+    let data = await gql("getRepls", SID, {})
+    console.log(data.response.data)
     if (data.response.success && data.response.data.currentUser) {
-
-      setThemeData(data.response)
-      setThemes(data.response.data.currentUser.authoredThemes.items)
+      setRepls(data.response.data.currentUser.storageInfo.accountStorageUtilization.perRepl)
     }
-
   }
   return (
     <>
       <div className="h-12 bg-[#1C2333] flex justify-center items-center">
         <input className="p-1 px-2 mx-2 border border-[#3C445C] focus:border-[#4E5569] bg-transparent btn" placeholder="SID Token" value={SID} onChange={(e) => { setSID(e.target.value) }}>
         </input>
-        <button className="p-1 px-2 mr-2 border border-[#3C445C] hover:border-[#4E5569] bg-transparent btn" onClick={() => { getThemeData() }}>Refresh</button>
+        <button className="p-1 px-2 mr-2 border border-[#3C445C] hover:border-[#4E5569] bg-transparent btn" onClick={() => { getReplData() }}>Refresh</button>
         <div className="border-r border-[#4E5569] h-8"></div>
-        <input className="p-1 px-2 mx-2 border border-[#3C445C] focus:border-[#4E5569] bg-transparent btn" placeholder="Theme ID" value={inputThemeID} onChange={(e) => { setInputThemeID(e.target.value) }}>
-        </input>
-        <button className="p-1 px-2 mr-2 border border-[#3C445C] hover:border-[#4E5569] bg-transparent btn" onClick={() => {
-          gql("setActiveTheme", SID, {
-            input: { themeId: parseInt(inputThemeID) }
-          })
-        }}>Set Active Theme</button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2">
 
 
         <div className="flex flex-col gap-2 p-2">
 
-          {themes.map((theme: any) => (
-            <ThemeContainer key={theme.id} themeData={{ theme }} sid={SID}></ThemeContainer>
+          {repls.map((repl: any) => (
+            <ReplContainer key={repl.repl.id} themeData={{ repl }} sid={SID}/>
           ))}
 
         </div>
