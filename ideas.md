@@ -1,0 +1,7 @@
+- each ReplContainer dropdown with more repl info
+- show full filesystem (like prettier) and when file is clicked on, use c4f to read and display, back arrow
+- repl deleted, append title to localstorage
+- history page, recently deleted repls query, if a title in localstorage is not in those titles, it is deleted from localstorage
+- history page, repl title and restore button
+- login page, default user & password, like sid but in column, link at bottom on click switch to sid
+- switch refresh btn to say login before getData is run

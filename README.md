@@ -10,10 +10,12 @@ Next.js gives you the best developer experience with all the features you need f
 Tailwind is a utility-first CSS framework packed with classes like `flex`, `pt-4`, `text-center` and `rotate-90` that can be composed to build any design, directly in your markup.
 
 Example:
+
 ```html
 <div className="bg-slate-800 text-xl p-2 border border-gray-100">
   <p className="m-2 text-white">TailwindCSS and Next.js</p>
   <a href="..." className="text-red-300">Visit the documentation</a>
 </div>
 ```
-:raised_eyebrow: 
+
+:raised_eyebrow:

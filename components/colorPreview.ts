@@ -5,9 +5,9 @@ import {
   ViewPlugin,
   DecorationSet,
   Decoration,
-} from '@codemirror/view';
-import { Range, Extension } from '@codemirror/state';
-import { syntaxTree } from '@codemirror/language';
+} from "@codemirror/view";
+import { Range, Extension } from "@codemirror/state";
+import { syntaxTree } from "@codemirror/language";
 
 interface PickerState {
   from: number;
@@ -19,9 +19,9 @@ interface PickerState {
 const pickerState = new WeakMap<HTMLInputElement, PickerState>();
 
 enum ColorType {
-  rgb = 'RGB',
-  hex = 'HEX',
-  hsl = 'HSL',
+  rgb = "RGB",
+  hex = "HEX",
+  hsl = "HSL",
 }
 
 function colorPickersDecorations(view: EditorView) {
@@ -34,15 +34,10 @@ function colorPickersDecorations(view: EditorView) {
       enter: ({ type, from, to }) => {
         const callExp: string = view.state.doc.sliceString(from, to);
 
-        if (callExp.startsWith("\"#")) {
+        if (callExp.startsWith('"#')) {
+          let tHex = view.state.doc.sliceString(from, to).replaceAll('"', "");
 
-          let tHex = view.state.doc.sliceString(from, to).replaceAll("\"", "")
-
-
-          const [color, alpha] = toFullHex(
-            tHex,
-          );
-
+          const [color, alpha] = toFullHex(tHex);
 
           const widget = Decoration.widget({
             widget: new ColorPickerWidget({
@@ -69,7 +64,7 @@ function toFullHex(color: string): string[] {
     // 3-char hex
     return [
       `#${color[1].repeat(2)}${color[2].repeat(2)}${color[3].repeat(2)}`,
-      '',
+      "",
     ];
   }
 
@@ -86,12 +81,8 @@ function toFullHex(color: string): string[] {
     return [`#${color.slice(1, -2)}`, color.slice(-2)];
   }
 
-  return [color, ''];
+  return [color, ""];
 }
-
-
-
-
 
 // If you get a negative value you need to add 1 to it.
 // If you get a value above 1 you need to subtract 1 from it.
@@ -174,7 +165,7 @@ function rgbToHSL(r: number, g: number, b: number): number[] {
   return [hue, saturation, luminance];
 }
 
-export const wrapperClassName = 'cm-css-color-picker-wrapper';
+export const wrapperClassName = "cm-css-color-picker-wrapper";
 
 class ColorPickerWidget extends WidgetType {
   private readonly state: PickerState;
@@ -202,12 +193,12 @@ class ColorPickerWidget extends WidgetType {
   }
 
   toDOM() {
-    const picker = document.createElement('input');
+    const picker = document.createElement("input");
     pickerState.set(picker, this.state);
-    picker.type = 'color';
+    picker.type = "color";
     picker.value = this.color;
 
-    const wrapper = document.createElement('span');
+    const wrapper = document.createElement("span");
     wrapper.appendChild(picker);
     wrapper.className = wrapperClassName;
 
@@ -221,27 +212,27 @@ class ColorPickerWidget extends WidgetType {
 
 const colorPickerTheme = EditorView.baseTheme({
   [`.${wrapperClassName}`]: {
-    display: 'inline-block',
-    outline: '1px solid #eee',
-    marginRight: '0.6ch',
-    height: '1em',
-    width: '1em',
-    transform: 'translateY(1px)',
+    display: "inline-block",
+    outline: "1px solid #eee",
+    marginRight: "0.6ch",
+    height: "1em",
+    width: "1em",
+    transform: "translateY(1px)",
   },
   [`.${wrapperClassName} input[type="color"]`]: {
-    cursor: 'pointer',
-    height: '100%',
-    width: '100%',
+    cursor: "pointer",
+    height: "100%",
+    width: "100%",
     padding: 0,
-    border: 'none',
-    '&::-webkit-color-swatch-wrapper': {
+    border: "none",
+    "&::-webkit-color-swatch-wrapper": {
       padding: 0,
     },
-    '&::-webkit-color-swatch': {
-      border: 'none',
+    "&::-webkit-color-swatch": {
+      border: "none",
     },
-    '&::-moz-color-swatch': {
-      border: 'none',
+    "&::-moz-color-swatch": {
+      border: "none",
     },
   },
 });
@@ -266,7 +257,7 @@ const colorPickerViewPlugin = ViewPlugin.fromClass(
       change: (e, view) => {
         const target = e.target as HTMLInputElement;
         if (
-          target.nodeName !== 'INPUT' ||
+          target.nodeName !== "INPUT" ||
           !target.parentElement ||
           !target.parentElement.classList.contains(wrapperClassName)
         ) {
@@ -275,8 +266,7 @@ const colorPickerViewPlugin = ViewPlugin.fromClass(
 
         const data = pickerState.get(target)!;
 
-        let converted = "\"" + target.value + data.alpha + "\"";
-
+        let converted = '"' + target.value + data.alpha + '"';
 
         view.dispatch({
           changes: {
@@ -289,7 +279,7 @@ const colorPickerViewPlugin = ViewPlugin.fromClass(
         return true;
       },
     },
-  },
+  }
 );
 
 export const colorPicker: Extension = [colorPickerViewPlugin, colorPickerTheme];

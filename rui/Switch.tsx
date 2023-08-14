@@ -22,7 +22,7 @@ const css = cssRecord({
 });
 
 const backgroundFill = (
-  theme: (typeof colormap)[Colorway],
+  theme: typeof colormap[Colorway],
   isSelected: boolean,
   isDisabled: boolean,
   isReadOnly: boolean
@@ -39,7 +39,7 @@ const backgroundFill = (
 };
 
 const outlineFill = (
-  theme: (typeof colormap)[Colorway],
+  theme: typeof colormap[Colorway],
   isDisabled: boolean,
   isReadOnly: boolean,
   isHovered: boolean,
