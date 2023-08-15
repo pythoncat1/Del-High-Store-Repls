@@ -137,11 +137,9 @@ const isValidSID = async () => {
             />
             { !loggedIn ? (<Button
                 colorway="primary"
-                css={[
-                  rcss.color("foregroundDefault")
-                ]}
+                css={[{ color: "var(--foreground-default !important"}]}
                 iconRight={
-                  <icons.ArrowRight css={[rcss.color("foregroundDefault")]} />
+                  <icons.ArrowRight />
                 }
                 text="Log In"
                 onClick={getData}
