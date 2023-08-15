@@ -77,6 +77,7 @@ const isValidSID = async () => {
         ]);
         setUseTitleBar(true);
         localStorage.setItem("SID", SID);
+        localStorage.setItem("theme", theme);
     } else {
         setLoginMessage("Invalid SID.");
     }
