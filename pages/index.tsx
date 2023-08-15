@@ -8,13 +8,13 @@ import { Text, Button, Surface, icons, Input, rcss, tokens } from "../rui";
 import ReplitIcon from "../components/ReplitIcon";
 
 const Home: NextPage = () => {
-  const [SID, setSID] = React.useState<string>(
+  const [SID, setSID] = React.useState<string>(String(
     typeof window !== "undefined"
       ? (localStorage.getItem("SID") !== "undefined"
           ? localStorage.getItem("SID")
           : "") || ""
       : ""
-  ); // Load SID from localStorage
+  )); // Load SID from localStorage
 
   const [repls, setRepls] = React.useState<any>(null);
   const [theme, setTheme] = React.useState<any>(typeof window !== "undefined"
