@@ -17,11 +17,16 @@ const Home: NextPage = () => {
   )); // Load SID from localStorage
 
   const [repls, setRepls] = React.useState<any>(null);
-  const [theme, setTheme] = React.useState<any>(typeof window !== "undefined"
-      ? (localStorage.getItem("theme") !== "undefined"
-          ? JSON.parse(localStorage.getItem("theme"))
-          : "") || ""
-      : "");
+  const [theme, setTheme] = React.useState<any>(() => {
+  if (typeof window !== "undefined") {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme !== null && storedTheme !== undefined) {
+      return JSON.parse(storedTheme);
+    }
+  }
+  return "";
+});
+
   const [navBarCSS, setNavBarCSS] = React.useState([
     rcss.flex.column,
     rcss.p(8),
