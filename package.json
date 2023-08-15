@@ -48,7 +48,7 @@
     "downshift": "^8.1.0",
     "is-mobile": "^4.0.0",
     "jotai": "^2.3.0",
-    "next": "12.2.0",
+    "next": "^12.2.0",
     "primereact": "^9.6.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -14,7 +14,7 @@ const Home: NextPage = () => {
           ? localStorage.getItem("SID")
           : "") || ""
       : ""
-  )); // Load SID from localStorage
+  ));
 
   const [repls, setRepls] = React.useState<any>(null);
   const [theme, setTheme] = React.useState<any>(() => {
