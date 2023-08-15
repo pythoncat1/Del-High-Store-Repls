@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   const [theme, setTheme] = React.useState<any>(() => {
   if (typeof window !== "undefined") {
     const storedTheme = localStorage.getItem("theme");
-    if (storedTheme !== null && storedTheme !== undefined) {
+    if (storedTheme) {
       return JSON.parse(storedTheme);
     }
   }
