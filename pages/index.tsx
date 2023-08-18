@@ -88,7 +88,7 @@ const Home: NextPage = () => {
 
     React.useEffect(() => {
         if (theme) {
-            localStorage.setItem("theme", theme);
+            localStorage.setItem("theme", JSON.stringify(theme));
         }
     }, [theme]);
 
