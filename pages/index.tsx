@@ -8,24 +8,26 @@ import { Text, Button, Surface, icons, Input, rcss, tokens } from "../rui";
 import ReplitIcon from "../components/ReplitIcon";
 
 const Home: NextPage = () => {
-  const [SID, setSID] = React.useState<string>(String(
-    typeof window !== "undefined"
-      ? (localStorage.getItem("SID") !== "undefined"
-          ? localStorage.getItem("SID")
-          : "") || ""
-      : ""
-  ));
+  const [SID, setSID] = React.useState<string>(
+    String(
+      typeof window !== "undefined"
+        ? (localStorage.getItem("SID") !== "undefined"
+            ? localStorage.getItem("SID")
+            : "") || ""
+        : ""
+    )
+  );
 
   const [repls, setRepls] = React.useState<any>(null);
   const [theme, setTheme] = React.useState<any>(() => {
-  if (typeof window !== "undefined") {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) {
-      return JSON.parse(storedTheme);
+    if (typeof window !== "undefined") {
+      const storedTheme = localStorage.getItem("theme");
+      if (storedTheme) {
+        return JSON.parse(storedTheme);
+      }
     }
-  }
-  return "";
-});
+    return "";
+  });
 
   const [navBarCSS, setNavBarCSS] = React.useState([
     rcss.flex.column,
@@ -36,17 +38,16 @@ const Home: NextPage = () => {
   const [loginMessage, setLoginMessage] = React.useState<string>(null);
   const [test, setTest] = React.useState();
   const [loggedIn, setLoggedIn] = React.useState(false);
-  
+
   const testQuery = async () => {
-  let test = await gql("testQuery", SID);
-  return test;
-};
+    let test = await gql("testQuery", SID);
+    return test;
+  };
 
-const isValidSID = async () => {
-  let test = await testQuery();
-  return test?.currentUser?.id;
-};
-
+  const isValidSID = async () => {
+    let test = await testQuery();
+    return test?.currentUser?.id;
+  };
 
   const getRepls = async () => {
     let data = await gql("getRepls", SID);
@@ -66,27 +67,32 @@ const isValidSID = async () => {
   const getData = async () => {
     let isSIDValid = await isValidSID();
     if (isSIDValid) {
-        setLoginMessage(null);
-        setLoggedIn(true);
-        await Promise.all([getRepls(), getTheme()]);
-        setNavBarCSS([
-            rcss.flex.row,
-            rcss.rowWithGap(4),
-            rcss.p(8),
-            {
-                justifyContent: "center",
-                borderBottom: "1px solid var(--outline-dimmest)",
-                width: "100vw",
-                alignItems: "center",
-            },
-        ]);
-        setUseTitleBar(true);
-        localStorage.setItem("SID", SID);
-        localStorage.setItem("theme", theme);
+      setLoginMessage(null);
+      setLoggedIn(true);
+      await Promise.all([getRepls(), getTheme()]);
+      setNavBarCSS([
+        rcss.flex.row,
+        rcss.rowWithGap(4),
+        rcss.p(8),
+        {
+          justifyContent: "center",
+          borderBottom: "1px solid var(--outline-dimmest)",
+          width: "100vw",
+          alignItems: "center",
+        },
+      ]);
+      setUseTitleBar(true);
+      localStorage.setItem("SID", SID);
     } else {
-        setLoginMessage("Invalid SID.");
+      setLoginMessage("Invalid SID.");
     }
-};
+  };
+
+  React.useEffect(() => {
+    if (theme) {
+      localStorage.setItem("theme", theme);
+    }
+  }, [theme]);
 
   return (
     <>
@@ -140,18 +146,19 @@ const isValidSID = async () => {
                 setSID(e.target.value);
               }}
             />
-            { !loggedIn ? (<Button
+            {!loggedIn ? (
+              <Button
                 colorway="primary"
                 css={[rcss.color("foregroundDefault")]}
-                iconRight={
-                  <icons.ArrowRight />
-                }
+                iconRight={<icons.ArrowRight />}
                 text="Log In"
                 onClick={getData}
                 outlined={true}
                 stretch={true}
                 disabled={!SID}
-              />) : (<Button
+              />
+            ) : (
+              <Button
                 iconLeft={
                   <icons.RefreshCw css={[rcss.color("foregroundDefault")]} />
                 }
@@ -159,8 +166,8 @@ const isValidSID = async () => {
                 onClick={getData}
                 outlined={true}
                 disabled={!SID}
-              />)}
-              
+              />
+            )}
           </div>
           {loginMessage && (
             <Text css={[rcss.color("accentNegativeDefault"), rcss.p(8)]}>
