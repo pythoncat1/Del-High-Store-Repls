@@ -155,7 +155,7 @@ const Home: NextPage = () => {
                 onClick={getData}
                 outlined={true}
                 stretch={true}
-                // disabled={!SID}
+                disabled={!SID}
               />
             ) : (
               <Button

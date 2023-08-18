@@ -155,7 +155,7 @@ const Home: NextPage = () => {
                 onClick={getData}
                 outlined={true}
                 stretch={true}
-                // disabled={!SID}
+                disabled={!Boolean(SID)}
               />
             ) : (
               <Button
@@ -165,7 +165,7 @@ const Home: NextPage = () => {
                 text="Refresh"
                 onClick={getData}
                 outlined={true}
-                // disabled={!SID}
+                disabled={!SID}
               />
             )}
           </div>
