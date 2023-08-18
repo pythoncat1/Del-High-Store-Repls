@@ -6,13 +6,15 @@ import {Button, icons, Input, rcss, Surface, Text} from "../rui";
 import ReplitIcon from "../components/ReplitIcon";
 
 const Home: NextPage = () => {
-    const [SID, setSID] = React.useState<string>(String(
-        typeof window !== "undefined"
-            ? (localStorage.getItem("SID") !== "undefined"
-            ? localStorage.getItem("SID")
-            : "") || ""
-            : ""
-    ));
+    const [SID, setSID] = React.useState<string>(
+        String(
+            typeof window !== "undefined"
+                ? (localStorage.getItem("SID") !== "undefined"
+                ? localStorage.getItem("SID")
+                : "") || ""
+                : ""
+        )
+    );
 
     const [repls, setRepls] = React.useState<any>(null);
     const [theme, setTheme] = React.useState<any>(() => {
@@ -31,7 +33,7 @@ const Home: NextPage = () => {
         {margin: "auto", justifyContent: "center", alignItems: "center"},
     ]);
     const [useTitleBar, setUseTitleBar] = React.useState<boolean>(false);
-    const [loginMessage, setLoginMessage] = React.useState(null);
+    const [loginMessage, setLoginMessage] = React.useState<string>(null);
     const [test, setTest] = React.useState();
     const [loggedIn, setLoggedIn] = React.useState(false);
 
@@ -44,7 +46,6 @@ const Home: NextPage = () => {
         let test = await testQuery();
         return test?.currentUser?.id;
     };
-
 
     const getRepls = async () => {
         let data = await gql("getRepls", SID);
@@ -80,11 +81,16 @@ const Home: NextPage = () => {
             ]);
             setUseTitleBar(true);
             localStorage.setItem("SID", SID);
-            localStorage.setItem("theme", theme);
         } else {
             setLoginMessage("Invalid SID.");
         }
     };
+
+    React.useEffect(() => {
+        if (theme) {
+            localStorage.setItem("theme", theme);
+        }
+    }, [theme]);
 
     return (
         <>
@@ -138,27 +144,28 @@ const Home: NextPage = () => {
                                 setSID(e.target.value);
                             }}
                         />
-                        {!loggedIn ? (<Button
-                            colorway="primary"
-                            css={[rcss.color("foregroundDefault")]}
-                            iconRight={
-                                <icons.ArrowRight/>
-                            }
-                            text="Log In"
-                            onClick={getData}
-                            outlined={true}
-                            stretch={true}
-                            // disabled={!SID}
-                        />) : (<Button
-                            iconLeft={
-                                <icons.RefreshCw css={[rcss.color("foregroundDefault")]}/>
-                            }
-                            text="Refresh"
-                            onClick={getData}
-                            outlined={true}
-                            // disabled={!SID}
-                        />)}
-
+                        {!loggedIn ? (
+                            <Button
+                                colorway="primary"
+                                css={[rcss.color("foregroundDefault")]}
+                                iconRight={<icons.ArrowRight/>}
+                                text="Log In"
+                                onClick={getData}
+                                outlined={true}
+                                stretch={true}
+                                // disabled={!SID}
+                            />
+                        ) : (
+                            <Button
+                                iconLeft={
+                                    <icons.RefreshCw css={[rcss.color("foregroundDefault")]}/>
+                                }
+                                text="Refresh"
+                                onClick={getData}
+                                outlined={true}
+                                // disabled={!SID}
+                            />
+                        )}
                     </div>
                     {loginMessage && (
                         <Text css={[rcss.color("accentNegativeDefault"), rcss.p(8)]}>
