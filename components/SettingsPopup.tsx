@@ -77,22 +77,25 @@ const SettingsPopup: React.FC<SettingsPopupProps> = ({
                 }}
             >
                 <div css={[rcss.flex.column, rcss.colWithGap(16)]}>
-                    <SettingsSection
-                        state={shouldSaveTheme}
-                        setState={setShouldSaveTheme}
-                        icon={<icons.Palette/>}
-                        title="Save Theme"
-                        info="When the Log In or Refresh button is pressed, your theme will be loaded from local storage and set."
-                        description="Save your theme"
-                    />
-                    <SettingsSection
-                        state={shouldSaveSID}
-                        setState={setShouldSaveSID}
-                        icon={<icons.CreditCard/>}
-                        title="Save SID"
-                        info="Upon page load, the SID input will be automatically populated with the value retrieved from local storage. This stored SID corresponds to the last successful login or refresh action."
-                        description="Save your SID"
-                    />
+                    <Text variant="headerBig" multiline={false}>Settings</Text>
+                    <div css={[rcss.flex.column, rcss.colWithGap(16)]}>
+                        <SettingsSection
+                            state={shouldSaveTheme}
+                            setState={setShouldSaveTheme}
+                            icon={<icons.Palette/>}
+                            title="Save Theme"
+                            info="When the Log In or Refresh button is pressed, your theme will be loaded from local storage and set."
+                            description="Save your theme"
+                        />
+                        <SettingsSection
+                            state={shouldSaveSID}
+                            setState={setShouldSaveSID}
+                            icon={<icons.CreditCard/>}
+                            title="Save SID"
+                            info="Upon page load, the SID input will be automatically populated with the value retrieved from local storage. This stored SID corresponds to the last successful login or refresh action."
+                            description="Save your SID"
+                        />
+                    </div>
                 </div>
             </Modal>
             <div css={[{position: "fixed", bottom: "20px", right: "20px"}]}>
