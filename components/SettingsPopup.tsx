@@ -20,12 +20,12 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
                                                          }) => {
     const switchID = useId();
     return (
-        <div css={[rcss.flex.row, {alignItems: "center"}]}>
-            <label htmlFor={switchID}>
-                <div css={[rcss.flex.column]}>
-                    <div css={[rcss.flex.row, rcss.rowWithGap(4)]}>
-                        {icon}
-                        <Text>{title}</Text>
+        <div css={[rcss.flex.row, {alignItems: "center", justifyContent: "space-between"}]}>
+            <div css={[rcss.flex.row, {alignItems: "center"}]}>
+                {icon}
+                <div css={{display: "flex", flexDirection: "column", marginLeft: "8px"}}>
+                    <div css={[rcss.flex.row, rcss.rowWithGap(4), rcss.mb(2), {alignItems: "center"}]}>
+                        <Text css={{marginRight: "4px"}}>{title}</Text>
                         <Tooltip placement="bottom-end" tooltip={info}>
                             {(triggerProps, ref) => (
                                 <span ref={ref} {...triggerProps}>
@@ -36,14 +36,16 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
                     </div>
                     <Text variant="small">{description}</Text>
                 </div>
+            </div>
+            <label htmlFor={switchID} css={{marginLeft: "auto"}}>
+                <Switch
+                    aria-labelledby={switchID}
+                    isSelected={state}
+                    onChange={() => {
+                        setState(!state);
+                    }}
+                />
             </label>
-            <Switch
-                aria-labelledby={switchID}
-                isSelected={state}
-                onChange={() => {
-                    setState(!state);
-                }}
-            />
         </div>
     );
 };
@@ -77,7 +79,12 @@ const SettingsPopup: React.FC<SettingsPopupProps> = ({
                 }}
             >
                 <div css={[rcss.flex.column, rcss.colWithGap(16)]}>
-                    <Text variant="headerBig" multiline={false}>Settings</Text>
+                    <div css={[rcss.flex.row, rcss.rowWithGap(16), {alignItems: 'center'}]}>
+                        <icons.Settings size={24}/>
+                        <Text variant="headerBig" multiline={false}>
+                            Settings
+                        </Text>
+                    </div>
                     <div css={[rcss.flex.column, rcss.colWithGap(16)]}>
                         <SettingsSection
                             state={shouldSaveTheme}
@@ -98,7 +105,7 @@ const SettingsPopup: React.FC<SettingsPopupProps> = ({
                     </div>
                 </div>
             </Modal>
-            <div css={[{position: "fixed", bottom: "20px", right: "20px"}]}>
+            <div css={{position: "fixed", bottom: "20px", right: "20px"}}>
                 <IconButton
                     alt="Open Settings"
                     size={40}
