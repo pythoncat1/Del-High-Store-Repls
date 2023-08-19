@@ -82,7 +82,7 @@ const Home: NextPage = () => {
             ]);
             setUseTitleBar(true);
             if (shouldSaveSID) {
-              localStorage.setItem("SID", SID)
+                localStorage.setItem("SID", SID)
             }
         } else {
             setLoginMessage("Invalid SID.");
@@ -91,9 +91,9 @@ const Home: NextPage = () => {
 
     React.useEffect(() => {
         if (shouldSaveTheme) {
-          if (theme) {
-              localStorage.setItem("theme", JSON.stringify(theme));
-          }
+            if (theme) {
+                localStorage.setItem("theme", JSON.stringify(theme));
+            }
         }
     }, [theme]);
 
@@ -193,14 +193,15 @@ const Home: NextPage = () => {
                         ) : null}
                     </div>
                 </div>
-              { loggedIn && <SettingsPopup
-                setTheme={setTheme}
-                shouldSaveTheme={shouldSaveTheme}
-                setShouldSaveTheme={setShouldSaveTheme}
-                setSID={setSID}
-                shouldSaveSID={shouldSaveSID}
-                setShouldSaveSID={setShouldSaveSID}
-              />}
+                {loggedIn && <SettingsPopup
+                    setTheme={setTheme}
+                    shouldSaveTheme={shouldSaveTheme}
+                    setShouldSaveTheme={setShouldSaveTheme}
+                    setSID={setSID}
+                    shouldSaveSID={shouldSaveSID}
+                    setShouldSaveSID={setShouldSaveSID}
+                />}
+
             </Surface>
         </>
     );
