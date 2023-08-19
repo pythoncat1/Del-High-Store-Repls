@@ -32,7 +32,7 @@ export default async function handler(
         return data;
       });
 
-    res.status(200).json({ response: { success: true, data: data.data } }); //why doesnt this work :noooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo:
+    res.status(200).json({ response: { success: true, data: data.data } });
   } else {
     res.status(405).json({ response: { success: false } });
   }

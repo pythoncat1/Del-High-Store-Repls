@@ -4,6 +4,7 @@ import gql from "../components/gql";
 import ReplContainer from "../components/ReplContainer";
 import {Button, icons, Input, rcss, Surface, Text} from "../rui";
 import ReplitIcon from "../components/ReplitIcon";
+import SettingsPopup from "../components/SettingsPopup";
 
 const Home: NextPage = () => {
     const [SID, setSID] = React.useState<string>(
@@ -15,7 +16,7 @@ const Home: NextPage = () => {
                 : ""
         )
     );
-
+    const [shouldSaveSID, setShouldSaveSID] = React.useState<boolean>(true);
     const [repls, setRepls] = React.useState<any>(null);
     const [theme, setTheme] = React.useState<any>(() => {
         if (typeof window !== "undefined") {
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
         }
         return "";
     });
-
+    const [shouldSaveTheme, setShouldSaveTheme] = React.useState<boolean>(true);
     const [navBarCSS, setNavBarCSS] = React.useState([
         rcss.flex.column,
         rcss.p(8),
@@ -80,15 +81,19 @@ const Home: NextPage = () => {
                 },
             ]);
             setUseTitleBar(true);
-            localStorage.setItem("SID", SID);
+            if (shouldSaveSID) {
+              localStorage.setItem("SID", SID)
+            }
         } else {
             setLoginMessage("Invalid SID.");
         }
     };
 
     React.useEffect(() => {
-        if (theme) {
-            localStorage.setItem("theme", JSON.stringify(theme));
+        if (shouldSaveTheme) {
+          if (theme) {
+              localStorage.setItem("theme", JSON.stringify(theme));
+          }
         }
     }, [theme]);
 
@@ -151,7 +156,6 @@ const Home: NextPage = () => {
                                 iconRight={<icons.ArrowRight/>}
                                 text="Log In"
                                 onClick={getData}
-                                outlined={true}
                                 stretch={true}
                                 // disabled={!SID}
                             />
@@ -162,7 +166,6 @@ const Home: NextPage = () => {
                                 }
                                 text="Refresh"
                                 onClick={getData}
-                                outlined={true}
                                 // disabled={!SID}
                             />
                         )}
@@ -190,6 +193,14 @@ const Home: NextPage = () => {
                         ) : null}
                     </div>
                 </div>
+              { loggedIn && <SettingsPopup
+                setTheme={setTheme}
+                shouldSaveTheme={shouldSaveTheme}
+                setShouldSaveTheme={setShouldSaveTheme}
+                setSID={setSID}
+                shouldSaveSID={shouldSaveSID}
+                setShouldSaveSID={setShouldSaveSID}
+              />}
             </Surface>
         </>
     );
