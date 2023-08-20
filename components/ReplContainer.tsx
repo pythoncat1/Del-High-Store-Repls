@@ -21,7 +21,7 @@ const ReplContainer = (replData, SID) => {
     <li css={[rcss.flex.row, { height: "fit-content" }]}>
       <a
         href={`https://replit.com${replData.repl.url}`}
-        css={[rcss.flex.row, { textDecoration: "none" }]}
+        css={[rcss.flex.row, { textDecoration: "none", width: "100%", overflowX: "auto" }]}
       >
         <img
           src={replData.repl.iconUrl}

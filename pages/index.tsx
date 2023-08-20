@@ -207,12 +207,12 @@ const Home: NextPage = () => {
             <LoadingIcon />
           )}
         </div>
-        <div css={[rcss.flex.row]}>
+        <div css={[rcss.flex.row, {width: "fit-content", justifyContent: "center", alignItems: "center" }]}>
           <div
             css={[
               rcss.flex.column,
               rcss.rowWithGap(0),
-              { width: "100%", height: "100%" },
+              { width: "fit-content", justifyContent: "center", alignItems: "center" },
             ]}
           >
             {repls && repls.length > 0 ? (
