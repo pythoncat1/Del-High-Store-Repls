@@ -1,11 +1,4 @@
-import type CurrentUserThemeQuery from "./CurrentUser_Theme";
-import type DeleteReplMutation from "./DeleteRepl";
-import type ManageAccountStorageUtilizationCurrentUserQuery from "./ManageAccountStorageUtilizationCurrentUser";
-import type TestQuery from "./TestQuery";
-
-module.exports = [
-  CurrentUserThemeQuery,
-  DeleteReplMutation,
-  ManageAccountStorageUtilizationCurrentUserQuery,
-  TestQuery,
-];
+export type { default as CurrentUserThemeQuery } from "./CurrentUser_Theme";
+export type { default as DeleteReplMutation } from "./DeleteRepl";
+export type { default as ManageAccountStorageUtilizationCurrentUserQuery } from "./ManageAccountStorageUtilizationCurrentUser";
+export type { default as TestQuery } from "./TestQuery";
