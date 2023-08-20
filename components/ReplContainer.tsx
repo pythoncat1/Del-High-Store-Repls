@@ -9,7 +9,7 @@ const deleteRepl = async (SID: string) => {
   let success = await gql("deleteRepl", SID);
 };
 
-const ReplContainer = (replData, SID) => {
+const ReplContainer = (replData, SID: string) => {
   SID = replData.SID;
   replData = replData.replData;
 

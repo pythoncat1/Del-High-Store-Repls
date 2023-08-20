@@ -150,7 +150,7 @@ const Home: NextPage = () => {
         background="root"
         css={[
           rcss.color("foregroundDefault"),
-          { width: "100vw", height: "100vh" },
+          { width: "100vw", height: "100vh", overflowY: "scroll" },
         ]}
       >
         <div css={navBarCSS}>
