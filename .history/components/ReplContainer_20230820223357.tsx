@@ -22,7 +22,6 @@ type PerReplData = {
 type Data = {
   replData: PerReplData;
   SID: string;
-  handleDeleteRepl: HandleDeleteReplType;
 };
 
 type HandleDeleteReplType = (replID: string) => GraphQLTypes.DeleteReplMutation;

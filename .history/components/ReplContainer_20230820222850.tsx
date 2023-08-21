@@ -22,20 +22,17 @@ type PerReplData = {
 type Data = {
   replData: PerReplData;
   SID: string;
-  handleDeleteRepl: HandleDeleteReplType;
 };
 
 type HandleDeleteReplType = (replID: string) => GraphQLTypes.DeleteReplMutation;
 
 const ReplContainer = (
   data: Data,
-  //SID: string,
-  //handleDeleteRepl: HandleDeleteReplType
+  SID: string,
+  handleDeleteRepl: HandleDeleteReplType
 ) => {
-  console.log(data);
   SID = data.SID;
   replData = data.replData;
-  handleDeleteRepl = data.handleDeleteRepl;
 
   const bytesToGiB = (bytes: number) => {
     return bytes / 1073741824; // 1024^3 (1 GiB)

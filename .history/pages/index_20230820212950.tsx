@@ -110,8 +110,8 @@ const Home: NextPage = () => {
   };
 
   const handleDeleteRepl = async (SID: string) => {
-  let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID);
-  return success;
+  let success = await gql("deleteRepl", SID);
+  return success: GraphQLTypes.DeleteReplMutation;
 };
 
   React.useEffect(() => {

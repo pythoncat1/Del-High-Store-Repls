@@ -110,8 +110,8 @@ const Home: NextPage = () => {
   };
 
   const handleDeleteRepl = async (SID: string) => {
-  let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID);
-  return success;
+  let success = await gql("deleteRepl", SID);
+  return success: GraphQLTypes.DeleteReplMutation;
 };
 
   React.useEffect(() => {
@@ -224,7 +224,7 @@ const Home: NextPage = () => {
             {repls && repls.length > 0 ? (
               <ul>
                 {repls.map((repl: any) => (
-                  <ReplContainer key={repl.id} replData={repl} SID={SID} handleDeleteRepl={handleDeleteRepl} />
+                  <ReplContainer key={repl.id} replData={repl} SID={SID} handle/>
                 ))}
               </ul>
             ) : null}

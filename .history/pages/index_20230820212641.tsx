@@ -6,7 +6,7 @@ import { Button, icons, Input, rcss, Surface, Text } from "../rui";
 import LoadingIcon from "../components/Loader"
 import ReplitIcon from "../components/ReplitIcon";
 import SettingsPopup from "../components/SettingsPopup";
-import * as GraphQLTypes from "../components/types";
+import * as 
 
 const Home: NextPage = () => {
   const [shouldSaveSID, setShouldSaveSID] = React.useState<boolean>(() => {
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
   const [showLoader, setShowLoader] = React.useState(false);
 
   const testQuery = async () => {
-    let test: GraphQLTypes.TestQuery = await gql("testQuery", SID);
+    let test = await gql("testQuery", SID);
     return test;
   };
 
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
   };
 
   const getRepls = async () => {
-    let data: GraphQLTypes.ManageAccountStorageUtilizationCurrentUserQuery = await gql("getRepls", SID);
+    let data = await gql("getRepls", SID);
     let perReplData =
       data.currentUser.storageInfo.accountStorageUtilization.perRepl;
     let top20Values = perReplData
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
   };
 
   const getTheme = async () => {
-    let data: GraphQLTypes.CurrentUserThemeQuery = await gql("getTheme", SID);
+    let data = await gql("getTheme", SID);
     setTheme(data.currentUser.activeThemeVersion);
   };
 
@@ -108,11 +108,6 @@ const Home: NextPage = () => {
       setLoginMessage("Invalid SID.");
     }
   };
-
-  const handleDeleteRepl = async (SID: string) => {
-  let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID);
-  return success;
-};
 
   React.useEffect(() => {
     if (shouldSaveTheme) {
@@ -224,7 +219,7 @@ const Home: NextPage = () => {
             {repls && repls.length > 0 ? (
               <ul>
                 {repls.map((repl: any) => (
-                  <ReplContainer key={repl.id} replData={repl} SID={SID} handleDeleteRepl={handleDeleteRepl} />
+                  <ReplContainer key={repl.id} replData={repl} SID={SID} />
                 ))}
               </ul>
             ) : null}

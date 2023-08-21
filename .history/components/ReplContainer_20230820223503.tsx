@@ -35,8 +35,7 @@ const ReplContainer = (
   console.log(data);
   SID = data.SID;
   replData = data.replData;
-  handleDeleteRepl = data.handleDeleteRepl;
-
+  handleDeleteRepl: HandleDeleteReplType = data.handleDeleteRepl;
   const bytesToGiB = (bytes: number) => {
     return bytes / 1073741824; // 1024^3 (1 GiB)
   };

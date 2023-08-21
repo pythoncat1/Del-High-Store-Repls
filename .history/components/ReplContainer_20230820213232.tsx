@@ -1,7 +1,6 @@
 import { rcss, icons, Surface, Text } from "../rui";
 import { useNavigate } from "react-router-dom";
 import gql from "../components/gql";
-import * as GraphQLTypes from "../components/types";
 
 // Implement deletion history, restoring
 // using localStorage
@@ -16,26 +15,11 @@ type PerReplData = {
     title: string;
     nextPagePathname: string;
     iconUrl: string;
-  };
-};
+}
 
-type Data = {
-  replData: PerReplData;
-  SID: string;
-  handleDeleteRepl: HandleDeleteReplType;
-};
-
-type HandleDeleteReplType = (replID: string) => GraphQLTypes.DeleteReplMutation;
-
-const ReplContainer = (
-  data: Data,
-  //SID: string,
-  //handleDeleteRepl: HandleDeleteReplType
-) => {
-  console.log(data);
+const ReplContainer = (data: PerReplData, SID: string, handleDeleteRepl) => {
   SID = data.SID;
-  replData = data.replData;
-  handleDeleteRepl = data.handleDeleteRepl;
+  replData = rata.replData;
 
   const bytesToGiB = (bytes: number) => {
     return bytes / 1073741824; // 1024^3 (1 GiB)
@@ -45,10 +29,7 @@ const ReplContainer = (
     <li css={[rcss.flex.row, { height: "fit-content" }]}>
       <a
         href={`https://replit.com${replData.repl.url}`}
-        css={[
-          rcss.flex.row,
-          { textDecoration: "none", width: "100%", overflowX: "auto" },
-        ]}
+        css={[rcss.flex.row, { textDecoration: "none", width: "100%", overflowX: "auto" }]}
       >
         <img
           src={replData.repl.iconUrl}

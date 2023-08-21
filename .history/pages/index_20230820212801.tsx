@@ -77,7 +77,7 @@ const Home: NextPage = () => {
   };
 
   const getTheme = async () => {
-    let data: GraphQLTypes.CurrentUserThemeQuery = await gql("getTheme", SID);
+    let data: GraphQLTypes. = await gql("getTheme", SID);
     setTheme(data.currentUser.activeThemeVersion);
   };
 
@@ -108,11 +108,6 @@ const Home: NextPage = () => {
       setLoginMessage("Invalid SID.");
     }
   };
-
-  const handleDeleteRepl = async (SID: string) => {
-  let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID);
-  return success;
-};
 
   React.useEffect(() => {
     if (shouldSaveTheme) {
@@ -224,7 +219,7 @@ const Home: NextPage = () => {
             {repls && repls.length > 0 ? (
               <ul>
                 {repls.map((repl: any) => (
-                  <ReplContainer key={repl.id} replData={repl} SID={SID} handleDeleteRepl={handleDeleteRepl} />
+                  <ReplContainer key={repl.id} replData={repl} SID={SID} />
                 ))}
               </ul>
             ) : null}

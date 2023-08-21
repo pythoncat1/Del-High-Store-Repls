@@ -22,15 +22,14 @@ type PerReplData = {
 type Data = {
   replData: PerReplData;
   SID: string;
-  handleDeleteRepl: HandleDeleteReplType;
 };
 
 type HandleDeleteReplType = (replID: string) => GraphQLTypes.DeleteReplMutation;
 
 const ReplContainer = (
   data: Data,
-  //SID: string,
-  //handleDeleteRepl: HandleDeleteReplType
+  SID: string,
+  handleDeleteRepl: HandleDeleteReplType
 ) => {
   console.log(data);
   SID = data.SID;

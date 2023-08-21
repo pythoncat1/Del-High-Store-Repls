@@ -110,7 +110,7 @@ const Home: NextPage = () => {
   };
 
   const handleDeleteRepl = async (SID: string) => {
-  let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID);
+  let success = await gql("deleteRepl", SID);
   return success;
 };
 
