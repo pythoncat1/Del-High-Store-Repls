@@ -38,6 +38,7 @@ const Home: NextPage = () => {
         return JSON.parse(storedSettings).shouldSaveTheme;
       }
     }
+    elif 
     return true;
   });
   const [theme, setTheme] = React.useState<GraphQLTypes.CurrentUserThemeQuery>(

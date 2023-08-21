@@ -7,7 +7,6 @@ import LoadingIcon from "../components/Loader";
 import ReplitIcon from "../components/ReplitIcon";
 import SettingsPopup from "../components/SettingsPopup";
 import * as GraphQLTypes from "../components/types";
-import { Enum } from "../rui/icons";
 
 const Home: NextPage = () => {
   const [shouldSaveSID, setShouldSaveSID] = React.useState<boolean>(() => {

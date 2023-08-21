@@ -7,7 +7,19 @@ import LoadingIcon from "../components/Loader";
 import ReplitIcon from "../components/ReplitIcon";
 import SettingsPopup from "../components/SettingsPopup";
 import * as GraphQLTypes from "../components/types";
-import { Enum } from "../rui/icons";
+
+type PerRepl = {
+  usage: number;
+  percentage: number;
+  repl: {
+    id: string;
+    slug: string;
+    url: string;
+    title: string;
+    nextPagePathname: string;
+    iconUrl: string;
+  };
+};
 
 const Home: NextPage = () => {
   const [shouldSaveSID, setShouldSaveSID] = React.useState<boolean>(() => {
@@ -27,10 +39,7 @@ const Home: NextPage = () => {
     }
     return "";
   });
-  const [repls, setRepls] = React.useState<
-    | null
-    | GraphQLTypes.ManageAccountStorageUtilizationCurrentUserQuery["currentUser"]["storageInfo"]["accountStorageUtilization"]["perRepl"]
-  >(null);
+  const [repls, setRepls] = React.useState<null | PerRepl(null);
   const [shouldSaveTheme, setShouldSaveTheme] = React.useState<boolean>(() => {
     if (typeof window !== "undefined") {
       const storedSettings = localStorage.getItem("settings");
