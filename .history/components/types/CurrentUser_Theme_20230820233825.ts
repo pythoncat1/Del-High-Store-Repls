@@ -117,7 +117,6 @@ type CustomTheme = {
 
 type ActiveThemeVersion = {
   customTheme: CustomTheme;
-  values: ThemeValues;
 };
 
 type CurrentUserThemeQuery = {

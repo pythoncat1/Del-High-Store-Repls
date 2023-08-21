@@ -143,7 +143,7 @@ const Home: NextPage = () => {
               color-scheme: ${theme.currentUser.activeThemeVersion.customTheme
                 .colorScheme};
               ${Object.entries(
-                theme.currentUser.activeThemeVersion.values.global || {}
+                theme.currentUser.activeThemeVersion.values?.global || {}
               )
                 .filter(([key]) => key !== "__typename")
                 .map(

@@ -113,11 +113,11 @@ type ThemeValues = {
 
 type CustomTheme = {
   colorScheme: string;
+  values: ThemeValues;
 };
 
 type ActiveThemeVersion = {
-  customTheme: CustomTheme;
-  values: ThemeValues;
+  //customTheme: CustomTheme;
 };
 
 type CurrentUserThemeQuery = {
