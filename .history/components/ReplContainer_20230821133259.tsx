@@ -55,7 +55,7 @@ const ReplContainer = (data: Data) => {
               rcss.rowWithGap(8),
               {
                 height: "fit-content",
-                maxHeight: "48px",
+                maxHeight: "40px",
                 alignItems: "center",
               },
             ]}
@@ -65,7 +65,7 @@ const ReplContainer = (data: Data) => {
               css={[
                 rcss.flex.row,
                 rcss.rowWithGap(8),
-                { textDecoration: "none", width: "64vw", alignItems: "center" },
+                { textDecoration: "none", width: "50vw", alignItems: "center" },
               ]}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -111,26 +111,16 @@ const ReplContainer = (data: Data) => {
           </div>
         }
       >
-        <AccordionItem
-          headerContent={<Text>Description</Text>}
-          css={[rcss.ml(48), { width: "fit-content" }]}
-        >
-          <Text multiline css={[rcss.ml(32), { width: "48vw" }]}>
-            {replData.repl.description}
-          </Text>
+        <AccordionItem headerContent={<Text>Description</Text>} css={[{width: "fit-content"}]}>
+          <Text multiline css={[{ width: "50vw" }]}>
+          {replData.repl.description}
+        </Text>
         </AccordionItem>
-
-        <AccordionItem
-          headerContent={<Text>View Repl</Text>}
-          css={[rcss.ml(48), { width: "fit-content" }]}
-        >
+        
+        <AccordionItem headerContent={<Text>View Repl</Text>}>
           <iframe
             src={`https://replit.com${replData.repl.url}?v=1&embed=1`}
-            css={[
-              rcss.borderRadius(8),
-              rcss.ml(32),
-              { border: "none", height: "48vh", width: "48vw" },
-            ]}
+            css={[rcss.borderRadius(8), { border: "none", height: "50vh" }]}
           />
         </AccordionItem>
       </AccordionItem>

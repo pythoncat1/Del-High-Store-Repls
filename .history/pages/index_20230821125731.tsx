@@ -104,7 +104,7 @@ const Home: NextPage = () => {
           borderBottom: "1px solid var(--outline-dimmest)",
           width: "100vw",
           alignItems: "center",
-        },
+        },(
         rcss.mb(8),
       ]);
       setUseTitleBar(true);
@@ -244,13 +244,7 @@ const Home: NextPage = () => {
             ]}
           >
             {repls && repls.length > 0 ? (
-              <ul
-                css={[
-                  rcss.flex.column,
-                  rcss.colWithGap(8),
-                  { padding: 0, margin: 0 },
-                ]}
-              >
+              <ul css={[{ padding: 0, margin: 0 }]}>
                 {repls.map((repl: any) => (
                   <ReplContainer
                     key={repl.id}

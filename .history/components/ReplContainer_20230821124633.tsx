@@ -17,7 +17,6 @@ type PerReplData = {
     title: string;
     nextPagePathname: string;
     iconUrl: string;
-    description: string;
   };
 };
 
@@ -33,7 +32,6 @@ const ReplContainer = (data: Data) => {
   const SID: string = data.SID;
   const replData: PerReplData = data.replData;
   const handleDeleteRepl: HandleDeleteReplType = data.handleDeleteRepl;
-  console.log(replData);
 
   const bytesToGiB = (bytes: number) => {
     return bytes / 1073741824; // 1024^3 (1 GiB)
@@ -44,28 +42,23 @@ const ReplContainer = (data: Data) => {
       css={[
         rcss.flex.row,
         rcss.rowWithGap(8),
-        { height: "fit-content", alignItems: "center" },
+        { height: "fit-content", maxHeight: "40px", alignItems: "center" },
       ]}
     >
       <AccordionItem
+        css={[
+          rcss.flex.row,
+          rcss.rowWithGap(8),
+          { height: "fit-content", maxHeight: "20px", alignItems: "center" },
+        ]}
         headerContent={
-          <div
-            css={[
-              rcss.flex.row,
-              rcss.rowWithGap(8),
-              {
-                height: "fit-content",
-                maxHeight: "48px",
-                alignItems: "center",
-              },
-            ]}
-          >
+          <>
             <a
               href={`https://replit.com${replData.repl.url}`}
               css={[
                 rcss.flex.row,
                 rcss.rowWithGap(8),
-                { textDecoration: "none", width: "64vw", alignItems: "center" },
+                { textDecoration: "none", width: "100%", alignItems: "center" },
               ]}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -108,32 +101,9 @@ const ReplContainer = (data: Data) => {
             >
               <icons.Trash />
             </IconButton>
-          </div>
+          </>
         }
-      >
-        <AccordionItem
-          headerContent={<Text>Description</Text>}
-          css={[rcss.ml(48), { width: "fit-content" }]}
-        >
-          <Text multiline css={[rcss.ml(32), { width: "48vw" }]}>
-            {replData.repl.description}
-          </Text>
-        </AccordionItem>
-
-        <AccordionItem
-          headerContent={<Text>View Repl</Text>}
-          css={[rcss.ml(48), { width: "fit-content" }]}
-        >
-          <iframe
-            src={`https://replit.com${replData.repl.url}?v=1&embed=1`}
-            css={[
-              rcss.borderRadius(8),
-              rcss.ml(32),
-              { border: "none", height: "48vh", width: "48vw" },
-            ]}
-          />
-        </AccordionItem>
-      </AccordionItem>
+      ></AccordionItem>
     </li>
   );
 };

@@ -65,7 +65,7 @@ const ReplContainer = (data: Data) => {
               css={[
                 rcss.flex.row,
                 rcss.rowWithGap(8),
-                { textDecoration: "none", width: "64vw", alignItems: "center" },
+                { textDecoration: "none", width: "50vw", alignItems: "center" },
               ]}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -126,11 +126,7 @@ const ReplContainer = (data: Data) => {
         >
           <iframe
             src={`https://replit.com${replData.repl.url}?v=1&embed=1`}
-            css={[
-              rcss.borderRadius(8),
-              rcss.ml(32),
-              { border: "none", height: "48vh", width: "48vw" },
-            ]}
+            css={[rcss.borderRadius(8), rcss.ml(32), { border: "none", height: "48vh", width: "48vw" }]}
           />
         </AccordionItem>
       </AccordionItem>

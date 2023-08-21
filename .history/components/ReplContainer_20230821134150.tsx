@@ -65,7 +65,7 @@ const ReplContainer = (data: Data) => {
               css={[
                 rcss.flex.row,
                 rcss.rowWithGap(8),
-                { textDecoration: "none", width: "64vw", alignItems: "center" },
+                { textDecoration: "none", width: "50vw", alignItems: "center" },
               ]}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
