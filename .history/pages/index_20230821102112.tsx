@@ -26,7 +26,7 @@ const Home: NextPage = () => {
     }
     return "";
   });
-  const [repls, setRepls] = React.useState<null | GraphQLTypes.ManageAccountStorageUtilizationCurrentUserQuery["currentUser"]["storageInfo"]["accountStorageUtilization"]["perRepl"]>(null);
+  const [repls, setRepls] = React.useState<any>(null);
   const [shouldSaveTheme, setShouldSaveTheme] = React.useState<boolean>(() => {
     if (typeof window !== "undefined") {
       const storedSettings = localStorage.getItem("settings");
@@ -140,8 +140,8 @@ const Home: NextPage = () => {
         <style jsx global>
           {`
             body {
-              color-scheme: ${theme?.currentUser?.activeThemeVersion
-                ?.customTheme?.colorScheme};
+              color-scheme: ${theme?.currentUser?.activeThemeVersion?.customTheme?
+                .colorScheme};
               ${Object.entries(
                 theme?.currentUser?.activeThemeVersion?.values?.global || {}
               )
