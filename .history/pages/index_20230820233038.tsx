@@ -47,14 +47,15 @@ const Home: NextPage = () => {
       return "";
     }
   );
-  const [navBarCSS, setNavBarCSS] = React.useState<Array<object>>([
+  const [navBarCSS, setNavBarCSS] = React.useState([
     rcss.flex.column,
     rcss.p(8),
     { margin: "auto", justifyContent: "center", alignItems: "center" },
   ]);
   const [useTitleBar, setUseTitleBar] = React.useState<boolean>(false);
   const [loginMessage, setLoginMessage] = React.useState<string | null>(null);
-  const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
+  const [test, setTest] = React.useState();
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [showLoader, setShowLoader] = React.useState<boolean>(false);
 
   const testQuery = async () => {

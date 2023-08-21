@@ -3,7 +3,7 @@ import * as React from "react";
 import gql from "../components/gql";
 import ReplContainer from "../components/ReplContainer";
 import { Button, icons, Input, rcss, Surface, Text } from "../rui";
-import LoadingIcon from "../components/Loader";
+import LoadingIcon from "../components/Loader"
 import ReplitIcon from "../components/ReplitIcon";
 import SettingsPopup from "../components/SettingsPopup";
 import * as GraphQLTypes from "../components/types";
@@ -11,12 +11,12 @@ import * as GraphQLTypes from "../components/types";
 const Home: NextPage = () => {
   const [shouldSaveSID, setShouldSaveSID] = React.useState<boolean>(() => {
     if (typeof window !== "undefined") {
-      const storedSettings = localStorage.getItem("settings");
+      const storedSettings = localStorage.getItem("settings")
       if (storedSettings) {
-        return JSON.parse(storedSettings).shouldSaveSID;
+        return JSON.parse(storedSettings).shouldSaveSID
       }
     }
-    return true;
+    return true
   });
   const [SID, setSID] = React.useState<string>(() => {
     if (typeof window !== "undefined" && shouldSaveSID) {
@@ -29,33 +29,32 @@ const Home: NextPage = () => {
   const [repls, setRepls] = React.useState<any>(null);
   const [shouldSaveTheme, setShouldSaveTheme] = React.useState<boolean>(() => {
     if (typeof window !== "undefined") {
-      const storedSettings = localStorage.getItem("settings");
+      const storedSettings = localStorage.getItem("settings")
       if (storedSettings) {
-        return JSON.parse(storedSettings).shouldSaveTheme;
+        return JSON.parse(storedSettings).shouldSaveTheme
       }
     }
-    return true;
+    return true
   });
-  const [theme, setTheme] = React.useState<GraphQLTypes.CurrentUserThemeQuery>(
-    () => {
-      if (typeof window !== "undefined" && shouldSaveTheme) {
-        const storedTheme = localStorage.getItem("theme");
-        if (storedTheme) {
-          return JSON.parse(storedTheme);
-        }
+  const [theme, setTheme] = React.useState<GraphQLTypes.CurrentUserThemeQuery>(() => {
+    if (typeof window !== "undefined" && shouldSaveTheme) {
+      const storedTheme = localStorage.getItem("theme");
+      if (storedTheme) {
+        return JSON.parse(storedTheme);
       }
-      return "";
     }
-  );
-  const [navBarCSS, setNavBarCSS] = React.useState<Array<object>>([
+    return "";
+  });
+  const [navBarCSS, setNavBarCSS] = React.useState([
     rcss.flex.column,
     rcss.p(8),
     { margin: "auto", justifyContent: "center", alignItems: "center" },
   ]);
   const [useTitleBar, setUseTitleBar] = React.useState<boolean>(false);
   const [loginMessage, setLoginMessage] = React.useState<string | null>(null);
-  const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
-  const [showLoader, setShowLoader] = React.useState<boolean>(false);
+  const [test, setTest] = React.useState();
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [showLoader, setShowLoader] = React.useState(false);
 
   const testQuery = async () => {
     let test: GraphQLTypes.TestQuery = await gql("testQuery", SID);
@@ -68,8 +67,7 @@ const Home: NextPage = () => {
   };
 
   const getRepls = async () => {
-    let data: GraphQLTypes.ManageAccountStorageUtilizationCurrentUserQuery =
-      await gql("getRepls", SID);
+    let data: GraphQLTypes.ManageAccountStorageUtilizationCurrentUserQuery = await gql("getRepls", SID);
     let perReplData =
       data.currentUser.storageInfo.accountStorageUtilization.perRepl;
     let top20Values = perReplData
@@ -86,7 +84,7 @@ const Home: NextPage = () => {
   const getData = async () => {
     let isSIDValid = await isValidSID();
     if (isSIDValid) {
-      setShowLoader(true);
+      setShowLoader(true)
       setLoginMessage(null);
       setLoggedIn(true);
       await Promise.all([getRepls(), getTheme()]);
@@ -103,18 +101,18 @@ const Home: NextPage = () => {
       ]);
       setUseTitleBar(true);
       if (shouldSaveSID) {
-        localStorage.setItem("SID", SID);
+        localStorage.setItem("SID", SID)
       }
-      setShowLoader(false);
+      setShowLoader(false)
     } else {
       setLoginMessage("Invalid SID.");
     }
   };
 
   const handleDeleteRepl = async (SID: string) => {
-    let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID);
-    return success;
-  };
+  let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID);
+  return success;
+};
 
   React.useEffect(() => {
     if (shouldSaveTheme) {
@@ -138,23 +136,20 @@ const Home: NextPage = () => {
       {theme && (
         <style jsx global>
           {`
-            body {
-              color-scheme: ${theme.currentUser.activeThemeVersion.customTheme
-                .colorScheme};
-              ${Object.entries(
-                theme.currentUser.activeThemeVersion.values?.global || {}
+                      body {
+                        color-scheme: ${theme.customTheme.colorScheme};
+                        ${Object.entries(theme.values?.global || {})
+              .filter(([key]) => key !== "__typename")
+              .map(
+                ([key, value]) =>
+                  `--${key.replace(
+                    /[A-Z]/g,
+                    (char) => "-" + char.toLowerCase()
+                  )}: ${value};`
               )
-                .filter(([key]) => key !== "__typename")
-                .map(
-                  ([key, value]) =>
-                    `--${key.replace(
-                      /[A-Z]/g,
-                      (char) => "-" + char.toLowerCase()
-                    )}: ${value};`
-                )
-                .join("\n")}
-            }
-          `}
+              .join("\n")}
+                      }
+                    `}
         </style>
       )}
       <Surface
@@ -196,7 +191,7 @@ const Home: NextPage = () => {
                 text="Log In"
                 onClick={getData}
                 stretch={true}
-                // disabled={!SID}
+              // disabled={!SID}
               />
             ) : (
               <Button
@@ -205,7 +200,7 @@ const Home: NextPage = () => {
                 }
                 text="Refresh"
                 onClick={getData}
-                // disabled={!SID}
+              // disabled={!SID}
               />
             )}
           </div>
@@ -214,53 +209,36 @@ const Home: NextPage = () => {
               {loginMessage}
             </Text>
           )}
-          {showLoader && <LoadingIcon />}
+          {showLoader && (
+            <LoadingIcon />
+          )}
         </div>
-        <div
-          css={[
-            rcss.flex.row,
-            {
-              width: "fit-content",
-              justifyContent: "center",
-              alignItems: "center",
-            },
-          ]}
-        >
+        <div css={[rcss.flex.row, {width: "fit-content", justifyContent: "center", alignItems: "center" }]}>
           <div
             css={[
               rcss.flex.column,
               rcss.rowWithGap(0),
-              {
-                width: "fit-content",
-                justifyContent: "center",
-                alignItems: "center",
-              },
+              { width: "fit-content", justifyContent: "center", alignItems: "center" },
             ]}
           >
             {repls && repls.length > 0 ? (
               <ul>
                 {repls.map((repl: any) => (
-                  <ReplContainer
-                    key={repl.id}
-                    replData={repl}
-                    SID={SID}
-                    handleDeleteRepl={handleDeleteRepl}
-                  />
+                  <ReplContainer key={repl.id} replData={repl} SID={SID} handleDeleteRepl={handleDeleteRepl} />
                 ))}
               </ul>
             ) : null}
           </div>
         </div>
-        {loggedIn && (
-          <SettingsPopup
-            setTheme={setTheme}
-            shouldSaveTheme={shouldSaveTheme}
-            setShouldSaveTheme={setShouldSaveTheme}
-            setSID={setSID}
-            shouldSaveSID={shouldSaveSID}
-            setShouldSaveSID={setShouldSaveSID}
-          />
-        )}
+        {loggedIn && <SettingsPopup
+          setTheme={setTheme}
+          shouldSaveTheme={shouldSaveTheme}
+          setShouldSaveTheme={setShouldSaveTheme}
+          setSID={setSID}
+          shouldSaveSID={shouldSaveSID}
+          setShouldSaveSID={setShouldSaveSID}
+        />}
+
       </Surface>
     </>
   );

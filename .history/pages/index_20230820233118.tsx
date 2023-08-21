@@ -47,7 +47,7 @@ const Home: NextPage = () => {
       return "";
     }
   );
-  const [navBarCSS, setNavBarCSS] = React.useState<Array<object>>([
+  const [navBarCSS, setNavBarCSS] = React.useState<Array>([
     rcss.flex.column,
     rcss.p(8),
     { margin: "auto", justifyContent: "center", alignItems: "center" },
