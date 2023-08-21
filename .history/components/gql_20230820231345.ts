@@ -18,7 +18,7 @@ async function gql(query: keyof typeof queries, sid: string, variables: object =
         sid: sid,
       }),
     }).then(async (res) => {
-      return await res.json();
+      return await res.json(); // Response object
     });
 
     return data.response.data;

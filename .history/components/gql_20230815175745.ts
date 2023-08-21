@@ -8,7 +8,7 @@ const queries = {
     "mutation ReplsDashboardDeleteRepl($id: String!) { deleteRepl(id: $id) { id } }",
 };
 
-async function gql(query: keyof typeof queries, sid: string, variables: object = {}) {
+async function gql(query: any, sid: string, variables: any = {}) {
   try {
     let data = await fetch("/api/gql", {
       method: "POST",
@@ -18,7 +18,7 @@ async function gql(query: keyof typeof queries, sid: string, variables: object =
         sid: sid,
       }),
     }).then(async (res) => {
-      return await res.json();
+      return await res.json(); // Response object
     });
 
     return data.response.data;

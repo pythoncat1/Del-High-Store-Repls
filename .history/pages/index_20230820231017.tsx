@@ -51,7 +51,7 @@ const Home: NextPage = () => {
     { margin: "auto", justifyContent: "center", alignItems: "center" },
   ]);
   const [useTitleBar, setUseTitleBar] = React.useState<boolean>(false);
-  const [loginMessage, setLoginMessage] = React.useState<string | null>(null);
+  const [loginMessage, setLoginMessage] = React.useState<>(null);
   const [test, setTest] = React.useState();
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [showLoader, setShowLoader] = React.useState(false);

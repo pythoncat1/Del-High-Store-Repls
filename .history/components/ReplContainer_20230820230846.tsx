@@ -46,7 +46,6 @@ const ReplContainer = (data: Data) => {
           { textDecoration: "none", width: "100%", overflowX: "auto" },
         ]}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={replData.repl.iconUrl}
           alt="image"

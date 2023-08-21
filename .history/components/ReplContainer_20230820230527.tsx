@@ -46,8 +46,7 @@ const ReplContainer = (data: Data) => {
           { textDecoration: "none", width: "100%", overflowX: "auto" },
         ]}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={replData.repl.iconUrl}
           alt="image"
           css={[
@@ -71,7 +70,11 @@ const ReplContainer = (data: Data) => {
             stroke="var(--outline-default)"
           ></line>
         </svg>
-        <Text css={[rcss.color("foregroundDefault")]}>
+        <Text>
+          <span css={[rcss.color("foregroundDefault")]}>
+            {bytesToGiB(replData.usage).toFixed(4)} GiB
+          </span>
+        </Text>
           {bytesToGiB(replData.usage).toFixed(4)} GiB
         </Text>
       </a>

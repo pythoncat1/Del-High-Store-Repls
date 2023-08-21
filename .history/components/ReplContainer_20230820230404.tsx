@@ -46,16 +46,17 @@ const ReplContainer = (data: Data) => {
           { textDecoration: "none", width: "100%", overflowX: "auto" },
         ]}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={replData.repl.iconUrl}
-          alt="image"
+            alt={replData.repl.title}
+            style={{ borderRadius: 4, border: "1px solid var(--outline-default)" }}
+            width={16}
+            height={16}
           css={[
-            rcss.borderRadius(4),
-            { border: "1px solid var(--outline-default)" },
+            { borderRadius: 4, border: "1px solid var(--outline-default)" },
           ]}
-          width="16px"
-          height="16px"
+          width={16}
+          height={16}
         />
         <Text
           css={[rcss.color("foregroundDefault"), { textDecoration: "none" }]}
@@ -69,7 +70,8 @@ const ReplContainer = (data: Data) => {
             x2="100%"
             y2="50%"
             stroke="var(--outline-default)"
-          ></line>
+          ></line>{" "}
+          {/* svg 20px height fixed? */}
         </svg>
         <Text css={[rcss.color("foregroundDefault")]}>
           {bytesToGiB(replData.usage).toFixed(4)} GiB

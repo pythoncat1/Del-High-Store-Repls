@@ -2,7 +2,6 @@ import { rcss, icons, Surface, Text } from "../rui";
 import { useNavigate } from "react-router-dom";
 import gql from "../components/gql";
 import * as GraphQLTypes from "../components/types";
-import Image from "next/image";
 
 // Implement deletion history, restoring
 // using localStorage
@@ -28,7 +27,9 @@ type Data = {
 
 type HandleDeleteReplType = (replID: string) => GraphQLTypes.DeleteReplMutation;
 
-const ReplContainer = (data: Data) => {
+const ReplContainer = (
+  data: Data,
+) => {
   const SID = data.SID;
   const replData = data.replData;
   const handleDeleteRepl: HandleDeleteReplType = data.handleDeleteRepl;
@@ -46,10 +47,8 @@ const ReplContainer = (data: Data) => {
           { textDecoration: "none", width: "100%", overflowX: "auto" },
         ]}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={replData.repl.iconUrl}
-          alt="image"
           css={[
             rcss.borderRadius(4),
             { border: "1px solid var(--outline-default)" },
@@ -69,7 +68,8 @@ const ReplContainer = (data: Data) => {
             x2="100%"
             y2="50%"
             stroke="var(--outline-default)"
-          ></line>
+          ></line>{" "}
+          {/* svg 20px height fixed? */}
         </svg>
         <Text css={[rcss.color("foregroundDefault")]}>
           {bytesToGiB(replData.usage).toFixed(4)} GiB
