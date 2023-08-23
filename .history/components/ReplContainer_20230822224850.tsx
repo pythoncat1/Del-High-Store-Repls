@@ -33,7 +33,7 @@ const DeleteModal = ({
 }: {
   isOpen: boolean;
   handleClose: VoidFunction;
-  handleDeleteRepl: VoidFunction;
+  handleDeleteRepl: HandleDeleteReplType;
 }) => {
   return (
     <Modal isOpen={isOpen} onRequestClose={handleClose}>

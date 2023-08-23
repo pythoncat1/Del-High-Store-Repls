@@ -33,7 +33,7 @@ const DeleteModal = ({
 }: {
   isOpen: boolean;
   handleClose: VoidFunction;
-  handleDeleteRepl: VoidFunction;
+  handleDeleteRepl: HandleDeleteReplType;
 }) => {
   return (
     <Modal isOpen={isOpen} onRequestClose={handleClose}>
@@ -53,7 +53,7 @@ const DeleteModal = ({
           colorway="red"
           text="Yes, delete this Repl"
           onClick={() => {
-            handleDeleteRepl();
+            handleDeleteRepl(replData.repl.id);
             handleClose();
           }}
         />
