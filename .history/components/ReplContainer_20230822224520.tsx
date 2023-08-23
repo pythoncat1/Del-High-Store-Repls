@@ -26,11 +26,7 @@ type Data = {
 
 type HandleDeleteReplType = (replID: string) => GraphQLTypes.DeleteReplMutation;
 
-const DeleteModal = (
-  isOpen: boolean,
-  handleClose: VoidFunction,
-  handleDeleteRepl: VoidFunction
-) => {
+const DeleteModal = (isOpen: boolean, handleClose: VoidFunction, handleDeleteRepl: VoidFunction) => {
   return (
     <Modal isOpen={isOpen} onRequestClose={handleClose}>
       <div css={[rcss.mb(24)]}>
@@ -101,11 +97,7 @@ const ReplContainer = (data: Data) => {
 
   return (
     <>
-      <DeleteModal
-        isOpen={isOpen}
-        handleClose={() => setIsOpen(false)}
-        handleDeleteRepl={() => handleDeleteRepl(replData.repl.id)}
-      />
+      <DeleteModal isOpen={isOpen} handleClose={() => setIsOpen(false)} handleDeleteRepl={() => handleDeleteRepl(replData.repl.id)} />
       <li css={[rcss.flex.row, rcss.rowWithGap(8)]}>
         <AccordionItem
           headerContent={
