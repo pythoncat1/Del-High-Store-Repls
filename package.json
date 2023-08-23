@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.1",
+    "@apollo/graphql": "^14.5.0",
     "@codemirror/lang-css": "^6.0.1",
     "@codemirror/lang-json": "^6.0.1",
     "@codemirror/language": "^6.8.0",
@@ -46,6 +48,7 @@
     "codemirror-colorpicker": "^1.9.80",
     "date-fns": "^2.30.0",
     "downshift": "^8.1.0",
+    "graphql": "^16.8.0",
     "is-mobile": "^4.0.0",
     "jotai": "^2.3.0",
     "next": "^12.2.0",
