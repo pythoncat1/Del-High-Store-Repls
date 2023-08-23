@@ -238,7 +238,7 @@ const Home: NextPage = () => {
           <div
             css={[
               rcss.flex.column,
-              rcss.colWithGap(0),
+              rcss.rowWithGap(0),
               {
                 width: "fit-content",
                 justifyContent: "center",
@@ -247,7 +247,7 @@ const Home: NextPage = () => {
             ]}
           >
             {repls && repls.length > 0 ? (
-              <>
+              <div>
                 <ul
                   css={[
                     rcss.flex.column,

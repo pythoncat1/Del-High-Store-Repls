@@ -5,7 +5,7 @@ const queries = {
   getRepls:
     "query ManageAccountStorageUtilizationCurrentUser { currentUser { id username userSubscriptionType userPowerUpsByType { ... on UserError { message } ... on UnauthorizedError { message } ... on UserPowerUpsTypes { storage { currentSku } } } storageInfo { storageQuota { ... on StorageQuota { quota } } storageGracePeriodQuota { ... on StorageGracePeriodQuota { quota } } storageQuotaStatus2 { ... on StorageQuotaStatus { status } ... on ServiceUnavailable { message } } accountStorageUtilization { ...AccountStorageUtilization ... on UnauthorizedError { message } } } } } fragment AccountStorageUtilization on AccountStorageUtilization { total perRepl { usage percentage repl { id slug url title nextPagePathname iconUrl description likeCount commentCount runCount publicForkCount totalCyclesTips } } }",
   deleteRepl:
-    "mutation WorkspaceHeaderReplInfoDeleteRepl($id: String!) { deleteRepl(id: $id) { id __typename } }",
+    "mutation ReplsDashboardDeleteRepl($id: String!) { deleteRepl(id: $id) { id } }",
 };
 
 async function gql(
@@ -35,4 +35,3 @@ export default gql;
 
 /*
 [{"operationName":"WorkspaceHeaderReplInfoDeleteRepl","variables":{"id":"ba9c5e8a-e813-4c37-a114-25699583f399"},"query":"mutation WorkspaceHeaderReplInfoDeleteRepl($id: String!) {\n  deleteRepl(id: $id) {\n    id\n    __typename\n  }\n}\n"}]
-*/

@@ -60,7 +60,7 @@ const Home: NextPage = () => {
   const [loginMessage, setLoginMessage] = React.useState<string | null>(null);
   const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
   const [showLoader, setShowLoader] = React.useState<boolean>(false);
-  const [replAmount, setReplAmount] = React.useState<number>(20);
+  const 
 
   const testQuery = async () => {
     let test: GraphQLTypes.TestQuery = await gql("testQuery", SID);
@@ -238,7 +238,7 @@ const Home: NextPage = () => {
           <div
             css={[
               rcss.flex.column,
-              rcss.colWithGap(0),
+              rcss.rowWithGap(0),
               {
                 width: "fit-content",
                 justifyContent: "center",
@@ -247,34 +247,25 @@ const Home: NextPage = () => {
             ]}
           >
             {repls && repls.length > 0 ? (
-              <>
-                <ul
-                  css={[
-                    rcss.flex.column,
-                    rcss.colWithGap(8),
-                    { padding: 0, margin: 0 },
-                  ]}
-                >
-                  {repls.slice(0, replAmount).map((repl: any) => (
-                    <ReplContainer
-                      key={repl.id}
-                      replData={repl}
-                      SID={SID}
-                      handleDeleteRepl={(replID) => {
-                        handleDeleteRepl(replID);
-                        getRepls();
-                      }}
-                    />
-                  ))}
-                </ul>
-                <Button
-                  colorway="primary"
-                  iconRight={<icons.Plus />}
-                  text="Load More"
-                  onClick={() => setReplAmount(replAmount + 20)}
-                  stretch={true}
-                />
-              </>
+              <ul
+                css={[
+                  rcss.flex.column,
+                  rcss.colWithGap(8),
+                  { padding: 0, margin: 0 },
+                ]}
+              >
+                {repls.slice(0, 20).map((repl: any) => (
+                  <ReplContainer
+                    key={repl.id}
+                    replData={repl}
+                    SID={SID}
+                    handleDeleteRepl={(replID) => {
+                      handleDeleteRepl(replID);
+                      getRepls();
+                    }}
+                  />
+                ))}
+              </ul>
             ) : null}
           </div>
         </div>
