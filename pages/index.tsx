@@ -79,7 +79,6 @@ const Home: NextPage = () => {
     let top20Values = perReplData
       .sort((a: any, b: any) => Number(b.usage) - Number(a.usage))
       .slice(0, 20);
-    console.log(top20Values);
     setRepls(top20Values);
   };
 
@@ -117,8 +116,8 @@ const Home: NextPage = () => {
     }
   };
 
-  const handleDeleteRepl = async (SID: string) => {
-    let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID);
+  const handleDeleteRepl = async (replID: string) => {
+    let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", replID);
     return success;
   };
 
@@ -146,19 +145,19 @@ const Home: NextPage = () => {
           {`
             body {
               color-scheme: ${theme?.currentUser?.activeThemeVersion
-                ?.customTheme?.colorScheme};
+              ?.customTheme?.colorScheme};
               ${Object.entries(
                 theme?.currentUser?.activeThemeVersion?.values?.global || {}
               )
-                .filter(([key]) => key !== "__typename")
-                .map(
-                  ([key, value]) =>
-                    `--${key.replace(
-                      /[A-Z]/g,
-                      (char) => "-" + char.toLowerCase()
-                    )}: ${value};`
-                )
-                .join("\n")}
+              .filter(([key]) => key !== "__typename")
+              .map(
+                ([key, value]) =>
+                  `--${key.replace(
+                    /[A-Z]/g,
+                    (char) => "-" + char.toLowerCase()
+                  )}: ${value};`
+              )
+              .join("\n")}
             }
           `}
         </style>
@@ -202,7 +201,7 @@ const Home: NextPage = () => {
                 text="Log In"
                 onClick={getData}
                 stretch={true}
-                // disabled={!SID}
+              // disabled={!SID}
               />
             ) : (
               <Button
@@ -211,7 +210,7 @@ const Home: NextPage = () => {
                 }
                 text="Refresh"
                 onClick={getData}
-                // disabled={!SID}
+              // disabled={!SID}
               />
             )}
           </div>
@@ -256,7 +255,7 @@ const Home: NextPage = () => {
                     key={repl.id}
                     replData={repl}
                     SID={SID}
-                    handleDeleteRepl={handleDeleteRepl}
+                    handleDeleteRepl={(replID) => { handleDeleteRepl(replID); getRepls() }}
                   />
                 ))}
               </ul>
