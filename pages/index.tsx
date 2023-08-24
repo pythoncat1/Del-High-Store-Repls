@@ -61,6 +61,7 @@ const Home: NextPage = () => {
   const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
   const [showLoader, setShowLoader] = React.useState<boolean>(false);
   const [replAmount, setReplAmount] = React.useState<number>(20);
+  const [totalReplAmount, setTotalReplAmount] = React.useState<number>(0);
 
   const testQuery = async () => {
     let test: GraphQLTypes.TestQuery = await gql("testQuery", SID);
@@ -80,6 +81,7 @@ const Home: NextPage = () => {
     setRepls(
       perReplData.sort((a: any, b: any) => Number(b.usage) - Number(a.usage))
     );
+    setTotalReplAmount(perReplData.length);
   };
 
   const getTheme = async () => {
@@ -103,6 +105,10 @@ const Home: NextPage = () => {
           borderBottom: "1px solid var(--outline-dimmest)",
           width: "100vw",
           alignItems: "center",
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+          background: "var(--background-root)",
         },
         rcss.mb(8),
       ]);
@@ -267,13 +273,15 @@ const Home: NextPage = () => {
                     />
                   ))}
                 </ul>
-                <Button
-                  colorway="primary"
-                  iconRight={<icons.Plus />}
-                  text="Load More"
-                  onClick={() => setReplAmount(replAmount + 20)}
-                  stretch={true}
-                />
+                {replAmount < totalReplAmount && (
+                  <Button
+                    colorway="primary"
+                    iconRight={<icons.Plus />}
+                    text="Load More"
+                    onClick={() => setReplAmount(replAmount + 20)}
+                    stretch={true}
+                  />
+                )}
               </>
             ) : null}
           </div>
