@@ -1,3 +1,5 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "comma-dangle": ["error", "never"],
+  "eol-last": ["error", "never"]
 }

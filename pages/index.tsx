@@ -7,7 +7,6 @@ import LoadingIcon from "../components/Loader";
 import ReplitIcon from "../components/ReplitIcon";
 import SettingsPopup from "../components/SettingsPopup";
 import * as GraphQLTypes from "../components/types";
-import { Enum } from "../rui/icons";
 
 const Home: NextPage = () => {
   const [shouldSaveSID, setShouldSaveSID] = React.useState<boolean>(() => {
@@ -40,21 +39,19 @@ const Home: NextPage = () => {
     }
     return true;
   });
-  const [theme, setTheme] = React.useState<GraphQLTypes.CurrentUserThemeQuery>(
-    () => {
-      if (typeof window !== "undefined" && shouldSaveTheme) {
-        const storedTheme = localStorage.getItem("theme");
-        if (storedTheme) {
-          return JSON.parse(storedTheme);
-        }
+  const [theme, setTheme] = React.useState<GraphQLTypes.CurrentUserThemeQuery>(() => {
+    if (typeof window !== "undefined" && shouldSaveTheme) {
+      const storedTheme = localStorage.getItem("theme");
+      if (storedTheme) {
+        return JSON.parse(storedTheme);
       }
-      return "";
     }
-  );
+    return "";
+  });
   const [navBarCSS, setNavBarCSS] = React.useState<Array<object>>([
     rcss.flex.column,
     rcss.p(8),
-    { margin: "auto", justifyContent: "center", alignItems: "center" },
+    { margin: "auto", justifyContent: "center", alignItems: "center" }
   ]);
   const [useTitleBar, setUseTitleBar] = React.useState<boolean>(false);
   const [loginMessage, setLoginMessage] = React.useState<string | null>(null);
@@ -74,13 +71,12 @@ const Home: NextPage = () => {
   };
 
   const getRepls = async () => {
-    let data: GraphQLTypes.ManageAccountStorageUtilizationCurrentUserQuery =
-      await gql("getRepls", SID);
-    let perReplData =
-      data.currentUser.storageInfo.accountStorageUtilization.perRepl;
-    setRepls(
-      perReplData.sort((a: any, b: any) => Number(b.usage) - Number(a.usage))
+    let data: GraphQLTypes.ManageAccountStorageUtilizationCurrentUserQuery = await gql(
+      "getRepls",
+      SID
     );
+    let perReplData = data.currentUser.storageInfo.accountStorageUtilization.perRepl;
+    setRepls(perReplData.sort((a: any, b: any) => Number(b.usage) - Number(a.usage)));
     setTotalReplAmount(perReplData.length);
   };
 
@@ -108,9 +104,9 @@ const Home: NextPage = () => {
           position: "sticky",
           top: 0,
           zIndex: 1,
-          background: "var(--background-root)",
+          background: "var(--background-root)"
         },
-        rcss.mb(8),
+        rcss.mb(8)
       ]);
       setUseTitleBar(true);
       if (shouldSaveSID) {
@@ -123,11 +119,9 @@ const Home: NextPage = () => {
   };
 
   const handleDeleteRepl = async (replID: string) => {
-    let success: GraphQLTypes.DeleteReplMutation = await gql(
-      "deleteRepl",
-      SID,
-      { id: replID }
-    );
+    let success: GraphQLTypes.DeleteReplMutation = await gql("deleteRepl", SID, {
+      id: replID
+    });
     return success;
   };
 
@@ -142,7 +136,7 @@ const Home: NextPage = () => {
   React.useEffect(() => {
     const settings = {
       shouldSaveSID,
-      shouldSaveTheme,
+      shouldSaveTheme
     };
 
     localStorage.setItem("settings", JSON.stringify(settings));
@@ -154,8 +148,8 @@ const Home: NextPage = () => {
         <style jsx global>
           {`
             body {
-              color-scheme: ${theme?.currentUser?.activeThemeVersion
-                ?.customTheme?.colorScheme};
+              color-scheme: ${theme?.currentUser?.activeThemeVersion?.customTheme
+                ?.colorScheme};
               ${Object.entries(
                 theme?.currentUser?.activeThemeVersion?.values?.global || {}
               )
@@ -176,7 +170,7 @@ const Home: NextPage = () => {
         background="root"
         css={[
           rcss.color("foregroundDefault"),
-          { width: "100vw", height: "100vh", overflowY: "scroll" },
+          { width: "100vw", height: "100vh", overflowY: "scroll" }
         ]}
       >
         <div css={navBarCSS}>
@@ -185,7 +179,7 @@ const Home: NextPage = () => {
               rcss.flex.row,
               rcss.rowWithGap(8),
               rcss.p(8),
-              { alignItems: "center" },
+              { alignItems: "center" }
             ]}
           >
             <ReplitIcon />
@@ -215,9 +209,7 @@ const Home: NextPage = () => {
               />
             ) : (
               <Button
-                iconLeft={
-                  <icons.RefreshCw css={[rcss.color("foregroundDefault")]} />
-                }
+                iconLeft={<icons.RefreshCw css={[rcss.color("foregroundDefault")]} />}
                 text="Refresh"
                 onClick={getData}
                 // disabled={!SID}
@@ -237,8 +229,8 @@ const Home: NextPage = () => {
             {
               width: "fit-content",
               justifyContent: "center",
-              alignItems: "center",
-            },
+              alignItems: "center"
+            }
           ]}
         >
           <div
@@ -249,16 +241,17 @@ const Home: NextPage = () => {
                 width: "fit-content",
                 justifyContent: "center",
                 alignItems: "center",
-              },
+                margin: "auto"
+              }
             ]}
           >
-            {repls && repls.length > 0 ? (
+            {repls && repls.length > 0 && (
               <>
                 <ul
                   css={[
                     rcss.flex.column,
                     rcss.colWithGap(8),
-                    { padding: 0, margin: 0 },
+                    { padding: 0, margin: "auto" }
                   ]}
                 >
                   {repls.slice(0, replAmount).map((repl: any) => (
@@ -283,7 +276,7 @@ const Home: NextPage = () => {
                   />
                 )}
               </>
-            ) : null}
+            )}
           </div>
         </div>
         {loggedIn && (
