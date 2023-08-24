@@ -212,6 +212,7 @@ const Home: NextPage = () => {
                 iconLeft={<icons.RefreshCw css={[rcss.color("foregroundDefault")]} />}
                 text="Refresh"
                 onClick={getData}
+                colorway="primary"
                 // disabled={!SID}
               />
             )}
