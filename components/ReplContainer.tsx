@@ -185,7 +185,12 @@ const ReplContainer = (data: Data) => {
             css={[rcss.ml(48), { width: "fit-content" }]}
           >
             <Text multiline css={[rcss.ml(32), { width: "48vw" }]}>
-              {replData.repl.description}
+              {replData.repl.description ? (
+                replData.repl.description
+              ) : (
+                "This repl does not have a description!"
+              )}
+
             </Text>
           </AccordionItem>
           <AccordionItem
