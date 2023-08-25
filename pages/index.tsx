@@ -76,6 +76,7 @@ const Home: NextPage = () => {
       SID
     );
     let perReplData = data.currentUser.storageInfo.accountStorageUtilization.perRepl;
+    console.log(perReplData);
     setRepls(perReplData.sort((a: any, b: any) => Number(b.usage) - Number(a.usage)));
     setTotalReplAmount(perReplData.length);
   };
@@ -170,7 +171,7 @@ const Home: NextPage = () => {
         background="root"
         css={[
           rcss.color("foregroundDefault"),
-          { width: "100vw", height: "100vh", overflowY: "scroll" }
+          { width: "100vw", height: "100vh", overflowY: "scroll", alignItems: "center" }
         ]}
       >
         <div css={navBarCSS}>
@@ -224,62 +225,32 @@ const Home: NextPage = () => {
           )}
           {showLoader && <LoadingIcon />}
         </div>
-        <div
-          css={[
-            rcss.flex.row,
-            {
-              width: "fit-content",
-              justifyContent: "center",
-              alignItems: "center"
-            }
-          ]}
-        >
-          <div
-            css={[
-              rcss.flex.column,
-              rcss.colWithGap(0),
-              {
-                width: "fit-content",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "auto"
-              }
-            ]}
-          >
-            {repls && repls.length > 0 && (
-              <>
-                <ul
-                  css={[
-                    rcss.flex.column,
-                    rcss.colWithGap(8),
-                    { padding: 0, margin: "auto" }
-                  ]}
-                >
-                  {repls.slice(0, replAmount).map((repl: any) => (
-                    <ReplContainer
-                      key={repl.id}
-                      replData={repl}
-                      SID={SID}
-                      handleDeleteRepl={(replID) => {
-                        handleDeleteRepl(replID);
-                        getRepls();
-                      }}
-                    />
-                  ))}
-                </ul>
-                {replAmount < totalReplAmount && (
-                  <Button
-                    colorway="primary"
-                    iconRight={<icons.Plus />}
-                    text="Load More"
-                    onClick={() => setReplAmount(replAmount + 20)}
-                    stretch={true}
-                  />
-                )}
-              </>
+        {repls && repls.length > 0 && (
+          <>
+            <div css={[rcss.flex.column, rcss.colWithGap(8)]}>
+              {repls.slice(0, replAmount).map((repl: any) => (
+                <ReplContainer
+                  key={repl.id}
+                  replData={repl}
+                  SID={SID}
+                  handleDeleteRepl={(replID) => {
+                    handleDeleteRepl(replID);
+                    getRepls();
+                  }}
+                />
+              ))}
+            </div>
+            {replAmount < totalReplAmount && (
+              <Button
+                colorway="primary"
+                iconLeft={<icons.Plus />}
+                text="Load More"
+                onClick={() => setReplAmount(replAmount + 20)}
+                stretch={true}
+              />
             )}
-          </div>
-        </div>
+          </>
+        )}
         {loggedIn && (
           <SettingsPopup
             setTheme={setTheme}

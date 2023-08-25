@@ -7,7 +7,7 @@ import {
   AccordionItem,
   Pill,
   Modal,
-  Button,
+  Button
 } from "../rui";
 import React from "react";
 import gql from "../components/gql";
@@ -29,7 +29,7 @@ type HandleDeleteReplType = (replID: string) => GraphQLTypes.DeleteReplMutation;
 const DeleteModal = ({
   isOpen,
   handleClose,
-  handleDeleteRepl,
+  handleDeleteRepl
 }: {
   isOpen: boolean;
   handleClose: VoidFunction;
@@ -66,7 +66,7 @@ const StatPill = ({
   title,
   icon,
   value,
-  color,
+  color
 }: {
   title: string;
   icon: React.ReactElement;
@@ -80,7 +80,7 @@ const StatPill = ({
         rcss.flex.row,
         rcss.rowWithGap(8),
         rcss.p(4),
-        { width: "fit-content", alignItems: "center" },
+        { width: "fit-content", alignItems: "center" }
       ]}
     >
       <Text>{title}:</Text>
@@ -96,7 +96,7 @@ const StatPill = ({
 
 const ReplContainer = (data: Data) => {
   const SID: string = data.SID;
-  const replData: PerReplData = data.replData;
+  const replData = data.replData;
   const handleDeleteRepl: HandleDeleteReplType = data.handleDeleteRepl;
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
@@ -111,7 +111,7 @@ const ReplContainer = (data: Data) => {
         handleClose={() => setIsOpen(false)}
         handleDeleteRepl={() => handleDeleteRepl(replData.repl.id)}
       />
-      <li css={[rcss.flex.row, rcss.rowWithGap(8)]}>
+      <div css={[rcss.flex.row, rcss.rowWithGap(8)]}>
         <AccordionItem
           headerContent={
             <div
@@ -121,8 +121,8 @@ const ReplContainer = (data: Data) => {
                 {
                   height: "fit-content",
                   maxHeight: "48px",
-                  alignItems: "center",
-                },
+                  alignItems: "center"
+                }
               ]}
             >
               <a
@@ -133,8 +133,8 @@ const ReplContainer = (data: Data) => {
                   {
                     textDecoration: "none",
                     width: "64vw",
-                    alignItems: "center",
-                  },
+                    alignItems: "center"
+                  }
                 ]}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -143,16 +143,13 @@ const ReplContainer = (data: Data) => {
                   alt="image"
                   css={[
                     rcss.borderRadius(4),
-                    { border: "1px solid var(--outline-default)" },
+                    { border: "1px solid var(--outline-default)" }
                   ]}
                   width="32px"
                   height="32px"
                 />
                 <Text
-                  css={[
-                    rcss.color("foregroundDefault"),
-                    { textDecoration: "none" },
-                  ]}
+                  css={[rcss.color("foregroundDefault"), { textDecoration: "none" }]}
                 >
                   {replData.repl.title}
                 </Text>
@@ -197,7 +194,7 @@ const ReplContainer = (data: Data) => {
               css={[
                 rcss.borderRadius(8),
                 rcss.ml(32),
-                { border: "none", height: "48vh", width: "48vw" },
+                { border: "none", height: "48vh", width: "48vw" }
               ]}
             />
           </AccordionItem>
@@ -206,16 +203,16 @@ const ReplContainer = (data: Data) => {
             css={[rcss.ml(48), { width: "fit-content" }]}
           >
             <StatPill
+              title="Forks"
+              icon={<icons.ForkRight />}
+              value={replData.repl.publicForkCount}
+              color="blue"
+            />
+            <StatPill
               title="Likes"
               icon={<icons.Heart />}
               value={replData.repl.likeCount}
-              color="pink"
-            />
-            <StatPill
-              title="Comments"
-              icon={<icons.Chat />}
-              value={replData.repl.commentCount}
-              color="blue"
+              color="red"
             />
             <StatPill
               title="Runs"
@@ -224,20 +221,30 @@ const ReplContainer = (data: Data) => {
               color="green"
             />
             <StatPill
-              title="Forks"
-              icon={<icons.ForkRight />}
-              value={replData.repl.publicForkCount}
-              color="purple"
+              title="Created"
+              icon={<icons.Calendar />}
+              value={new Date(replData.repl.timeCreated).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric"
+              })}
+              color="pink"
             />
             <StatPill
               title="Tips"
               icon={<icons.Cycles />}
               value={replData.repl.totalCyclesTips}
-              color="orange"
+              color="blurple"
+            />
+            <StatPill
+              title="Comments"
+              icon={<icons.Chat />}
+              value={replData.repl.commentCount}
+              color="teal"
             />
           </AccordionItem>
         </AccordionItem>
-      </li>
+      </div>
     </>
   );
 };
