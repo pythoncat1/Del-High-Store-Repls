@@ -51,10 +51,13 @@ type AccountStorageUtilization = {
       likeCount: number;
       commentCount: number;
       runCount: number;
-      //multiplayers: any;
-      //recentComments: any;
       totalCyclesTips: number;
       timeCreated: number;
+      multiplayers: {
+        username: string;
+        image: string;
+        url: string;
+      };
     };
   }[];
 };

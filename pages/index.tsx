@@ -76,8 +76,12 @@ const Home: NextPage = () => {
       SID
     );
     let perReplData = data.currentUser.storageInfo.accountStorageUtilization.perRepl;
-    console.log(perReplData);
-    setRepls(perReplData.sort((a: any, b: any) => Number(b.usage) - Number(a.usage)));
+
+    let sortRepls = perReplData.sort(
+      (a: any, b: any) => Number(b.usage) - Number(a.usage)
+    );
+    console.log(sortRepls);
+    setRepls(sortRepls);
     setTotalReplAmount(perReplData.length);
   };
 
@@ -150,19 +154,19 @@ const Home: NextPage = () => {
           {`
             body {
               color-scheme: ${theme?.currentUser?.activeThemeVersion?.customTheme
-              ?.colorScheme};
+                ?.colorScheme};
               ${Object.entries(
                 theme?.currentUser?.activeThemeVersion?.values?.global || {}
               )
-              .filter(([key]) => key !== "__typename")
-              .map(
-                ([key, value]) =>
-                  `--${key.replace(
-                    /[A-Z]/g,
-                    (char) => "-" + char.toLowerCase()
-                  )}: ${value};`
-              )
-              .join("\n")}
+                .filter(([key]) => key !== "__typename")
+                .map(
+                  ([key, value]) =>
+                    `--${key.replace(
+                      /[A-Z]/g,
+                      (char) => "-" + char.toLowerCase()
+                    )}: ${value};`
+                )
+                .join("\n")}
             }
           `}
         </style>
@@ -206,7 +210,7 @@ const Home: NextPage = () => {
                 text="Log In"
                 onClick={getData}
                 stretch={true}
-              // disabled={!SID}
+                // disabled={!SID}
               />
             ) : (
               <Button
@@ -214,7 +218,7 @@ const Home: NextPage = () => {
                 text="Refresh"
                 onClick={getData}
                 colorway="primary"
-              // disabled={!SID}
+                // disabled={!SID}
               />
             )}
           </div>

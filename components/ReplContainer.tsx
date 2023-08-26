@@ -14,6 +14,7 @@ import gql from "../components/gql";
 import * as GraphQLTypes from "../components/types";
 import Image from "next/image";
 import { filledAndOutlined } from "../rui/Colorway";
+import Linkify from "../components/Linkify";
 
 // Implement deletion history, restoring
 // using localStorage
@@ -182,13 +183,26 @@ const ReplContainer = (data: Data) => {
             css={[rcss.ml(48), { width: "fit-content" }]}
           >
             <Text multiline css={[rcss.ml(32), { width: "48vw" }]}>
-              {replData.repl.description ? (
-                replData.repl.description
-              ) : (
-                "This repl does not have a description!"
-              )}
-
+              {replData.repl.description
+                ? Linkify(replData.repl.description)
+                : "This repl does not have a description!"}
             </Text>
+          </AccordionItem>
+          <AccordionItem
+            headerContent={<Text>Multiplayers</Text>}
+            css={[rcss.ml(48), { width: "fit-content" }]}
+          >
+            {replData.repl.multiplayers && replData.repl.multiplayers.length > 0
+              ? replData.repl.multiplayers.map((multiplayer) => {
+                  <a css={[rcss.flex.row, rcss.rowWithGap(8)]} href={`https://replit.com${multiplayer.url}`}>
+                    <img
+                      src={multiplayer.image}
+                      alt={`@${multiplayer.username}'s profile picture`}
+                    />
+                    <Text>@{multiplayer.username}</Text>
+                  </a>;
+                })
+              : "This Repl does not have any multiplayers!"}
           </AccordionItem>
           <AccordionItem
             headerContent={<Text>View Repl</Text>}
