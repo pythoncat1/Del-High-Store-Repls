@@ -80,7 +80,6 @@ const Home: NextPage = () => {
     let sortRepls = perReplData.sort(
       (a: any, b: any) => Number(b.usage) - Number(a.usage)
     );
-    console.log(sortRepls);
     setRepls(sortRepls);
     setTotalReplAmount(perReplData.length);
   };

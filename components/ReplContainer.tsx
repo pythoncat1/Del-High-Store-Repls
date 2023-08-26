@@ -15,6 +15,10 @@ import * as GraphQLTypes from "../components/types";
 import Image from "next/image";
 import { filledAndOutlined } from "../rui/Colorway";
 import Linkify from "../components/Linkify";
+import { PillLink } from "../components/PillLink";
+import ReactMarkdown from "react-markdown";
+import showdown from "showdown";
+import { markdownToHtml } from "../components/Markdownify";
 
 // Implement deletion history, restoring
 // using localStorage
@@ -101,6 +105,8 @@ const ReplContainer = (data: Data) => {
   const handleDeleteRepl: HandleDeleteReplType = data.handleDeleteRepl;
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
+  const converter = new showdown.Converter();
+
   const bytesToGiB = (bytes: number) => {
     return bytes / 1073741824; // 1024^3 (1 GiB)
   };
@@ -183,9 +189,11 @@ const ReplContainer = (data: Data) => {
             css={[rcss.ml(48), { width: "fit-content" }]}
           >
             <Text multiline css={[rcss.ml(32), { width: "48vw" }]}>
-              {replData.repl.description
-                ? Linkify(replData.repl.description)
-                : "This repl does not have a description!"}
+              {replData.repl.description ? (
+                markdownToHtml(replData.repl.description)
+              ) : (
+                "This repl does not have a description!"
+              )}
             </Text>
           </AccordionItem>
           <AccordionItem
@@ -194,13 +202,31 @@ const ReplContainer = (data: Data) => {
           >
             {replData.repl.multiplayers && replData.repl.multiplayers.length > 0
               ? replData.repl.multiplayers.map((multiplayer) => {
-                  <a css={[rcss.flex.row, rcss.rowWithGap(8)]} href={`https://replit.com${multiplayer.url}`}>
-                    <img
-                      src={multiplayer.image}
-                      alt={`@${multiplayer.username}'s profile picture`}
-                    />
-                    <Text>@{multiplayer.username}</Text>
-                  </a>;
+                  return (
+                    <a
+                      css={[
+                        rcss.flex.row,
+                        rcss.color("foregroundDefault"),
+                        rcss.ml(32),
+                        rcss.mb(2),
+                        { textDecoration: "none" }
+                      ]}
+                      href={`https://replit.com${multiplayer.url}`}
+                    >
+                      <Pill
+                        iconLeft={
+                          <img
+                            src={multiplayer.image}
+                            alt={`@${multiplayer.username}'s profile picture`}
+                            width={16}
+                            height={16}
+                            css={[{ borderRadius: "50%" }]}
+                          />
+                        }
+                        text={`@${multiplayer.username}`}
+                      />
+                    </a>
+                  );
                 })
               : "This Repl does not have any multiplayers!"}
           </AccordionItem>
